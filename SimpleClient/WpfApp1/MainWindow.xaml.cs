@@ -47,8 +47,8 @@ namespace WpfApp1
             StartListenerAsync();
 
             //Sending the data to Python
-            using (var requestSocket = new RequestSocket("tcp://127.0.0.1:5555"))
-            {
+            //using (var requestSocket = new RequestSocket("tcp://127.0.0.1:5555"))
+            //{
                 //var newData = new PythonInputData();
                 //newData.overall = 60;
                 //newData.spec = new double[1024];
@@ -94,7 +94,7 @@ namespace WpfApp1
 
                 //sciChartSurface.RenderableSeries.Clear();
                 //sciChartSurface.RenderableSeries.Add(lineSeries);
-            }
+            //}
         }
     
     
