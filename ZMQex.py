@@ -7,7 +7,7 @@
 import time
 import zmq
 import json
-import mathcd 
+import math 
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)

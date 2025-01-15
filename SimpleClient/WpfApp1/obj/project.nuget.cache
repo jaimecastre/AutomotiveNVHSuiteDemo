@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "NoXfrxIc1CE=",
+  "dgSpecHash": "4L+2xR6jYKU=",
   "success": true,
   "projectFilePath": "C:\\Users\\jcastresana\\AutomotiveNVHSuiteDemo\\SimpleClient\\WpfApp1\\WpfApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jcastresana\\.nuget\\packages\\asyncio\\0.1.69\\asyncio.0.1.69.nupkg.sha512",
+    "C:\\Users\\jcastresana\\.nuget\\packages\\mathnet.numerics\\6.0.0-beta1\\mathnet.numerics.6.0.0-beta1.nupkg.sha512",
     "C:\\Users\\jcastresana\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\jcastresana\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.1\\microsoft.bcl.cryptography.9.0.1.nupkg.sha512",
     "C:\\Users\\jcastresana\\.nuget\\packages\\microsoft.extensions.objectpool\\5.0.10\\microsoft.extensions.objectpool.5.0.10.nupkg.sha512",

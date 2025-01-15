@@ -15,6 +15,8 @@ using SciChart.Charting.Model.DataSeries;
 using SciChart.Charting.Visuals.Axes;
 using SciChart.Charting.Visuals.RenderableSeries;
 using SciChart.Data.Model;
+using System.Numerics;
+using MathNet.Numerics.IntegralTransforms;
 
 namespace WpfApp1
 {
@@ -35,7 +37,7 @@ namespace WpfApp1
         private void InitializeSciChart()
         {
             sciChartSurface.XAxes.Add(new NumericAxis());
-            sciChartSurface.YAxes.Add(new NumericAxis());
+            sciChartSurface.YAxes.Add(new NumericAxis { AxisAlignment = AxisAlignment.Left });
         }
 
         private void btStart_Click(object sender, RoutedEventArgs e)
@@ -59,11 +61,26 @@ namespace WpfApp1
                 var message = requestSocket.ReceiveFrameString();
                 lbSPL.Content = "Error: " + (Math.Round(Convert.ToDouble(message) - 100)).ToString() + "dB";
 
-                // Plotting the data
-                var dataSeries = new XyDataSeries<double, double>();
+                // Calculate FFT
+                Complex[] fftResult = new Complex[newData.spec.Length];
                 for (int i = 0; i < newData.spec.Length; i++)
                 {
-                    dataSeries.Append(i, newData.spec[i]);
+                    fftResult[i] = new Complex(newData.spec[i], 0);
+                }
+                Fourier.Forward(fftResult, FourierOptions.Matlab);
+
+                // Calculate average FFT in dB SPL
+                double[] avgFftDbSpl = new double[fftResult.Length / 2];
+                for (int i = 0; i < avgFftDbSpl.Length; i++)
+                {
+                    avgFftDbSpl[i] = 20 * Math.Log10(fftResult[i].Magnitude);
+                }
+
+                // Plotting the average FFT in dB SPL
+                var dataSeries = new XyDataSeries<double, double>();
+                for (int i = 0; i < avgFftDbSpl.Length; i++)
+                {
+                    dataSeries.Append(i, avgFftDbSpl[i]);
                 }
 
                 var lineSeries = new FastLineRenderableSeries
