@@ -14,6 +14,14 @@ socket = context.socket(zmq.REP)
 socket.bind("tcp://*:5555")
 
 while True:
+
+    wait for signal: "START";
+
+
+
+    send signal: "RUNSPC";
+    wait for signal: "SPCRESULT";
+    unpack results
     #  Wait for next request from client
     message = socket.recv()
     print(f"Received request: {message}")
@@ -38,3 +46,25 @@ while True:
 
     #  Send reply back to client
     socket.send_string(str(overall_dB))
+
+
+
+
+
+
+
+
+
+
+
+loop (i = 1..10)
+
+    spcResult = executeSpc(settings, timeData, frfData);
+
+    accum += spcResult
+
+
+endloop
+
+aver = accum / 10
+
