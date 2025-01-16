@@ -86,7 +86,7 @@ namespace WpfApp1
             StartListenerAsync();
         }
 
-        List<(double, double)> _data = new();
+        List<(double, List<double>)> _data = new();
 
         private void LoadFile()
         {
@@ -98,10 +98,10 @@ namespace WpfApp1
             {
                 var fields = line.Split(';');
 
-                double time = double.Parse(fields[0]);
-                double data = double.Parse(fields[1]);
+                double time = double.Parse(fields.First());
+                var datas = fields.Skip(1).Select(x => double.Parse(x)).ToList();
 
-                _data.Add((time, data));
+                _data.Add((time, datas));
 
                 line = reader.ReadLine();
             }
@@ -217,7 +217,7 @@ namespace WpfApp1
 
             for (int i = 0; i < lengthData; i++)
             {
-                newData.spec[i] = _data[i].Item2;
+                newData.spec[i] = _data[i].Item2.First();
             }
             var serializedData = JsonConvert.SerializeObject(newData);
             //socket.SendFrame(serializedData);
@@ -258,8 +258,6 @@ namespace WpfApp1
 
                 ii += sizeBlock;
             }
-
-
 
             Dispatcher.Invoke(() =>
             {
