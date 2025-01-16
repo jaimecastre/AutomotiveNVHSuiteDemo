@@ -206,6 +206,68 @@ namespace WpfApp1
             });
         }
 
+        private void CommandStartSpc2(RequestSocket socket)
+        {
+            int lengthData = _data.Count;
+            int sizeBlock = 1024;
+
+            var newData = new PythonInputData();
+            newData.overall = 60;
+            newData.spec = new double[lengthData];
+
+            for (int i = 0; i < lengthData; i++)
+            {
+                newData.spec[i] = _data[i].Item2;
+            }
+            var serializedData = JsonConvert.SerializeObject(newData);
+            //socket.SendFrame(serializedData);
+
+            // Calculate FFT
+            Complex[] fftResult = new Complex[sizeBlock];
+            double[] avgFftDbSpl = new double[fftResult.Length / 2];
+
+            var ii = 0;
+            while (ii + sizeBlock < lengthData)
+            {
+
+                for (int i = 0; i < sizeBlock; i++)
+                {
+                    fftResult[i] = new Complex(newData.spec[i + ii], 0);
+                }
+                Fourier.Forward(fftResult, FourierOptions.Matlab);
+
+                // Calculate average FFT in dB SPL
+                for (int i = 0; i < avgFftDbSpl.Length; i++)
+                {
+                    avgFftDbSpl[i] = 20 * Math.Log10(fftResult[i].Magnitude);
+                }
+
+                // Plotting the average FFT in dB SPL
+                var dataSeries = new XyDataSeries<double, double>();
+                for (int i = 0; i < avgFftDbSpl.Length; i++)
+                {
+                    dataSeries.Append(i, avgFftDbSpl[i]);
+                }
+
+                // Update heatmap data
+                for (int i = 0; i < avgFftDbSpl.Length; i++)
+                {
+                    _heatmapData[_currentRow, i] = avgFftDbSpl[i];
+                }
+                _currentRow = (_currentRow + 1) % HeatmapHeight;
+
+                ii += sizeBlock;
+            }
+
+
+
+            Dispatcher.Invoke(() =>
+            {
+                var heatmapDataSeries = new UniformHeatmapDataSeries<double, double, double>(_heatmapData, 0, 1, 0, 1);
+                heatmapSeries.DataSeries = heatmapDataSeries;
+            });
+        }
+
         private void CommandShowValue(RequestSocket socket)
         {
             var message = socket.ReceiveFrameString();
