@@ -41,6 +41,10 @@
             <Button x:Name="btStart" Content="Start" Click="btStart_Click"/>
             <Label x:Name="lbSPL" Content="Error: x dB"/>
         </StackPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" Background="#E0E0E0" Margin="10">
+            <Label Content="Data file: "/>
+            <TextBox x:Name="lbFilePath"/>
+        </StackPanel>
         <s:SciChartSurface x:Name="sciChartSurface" DockPanel.Dock="Bottom" Margin="10">
             <s:SciChartSurface.ChartModifier>
                 <s:LegendModifier ShowLegend="True" />

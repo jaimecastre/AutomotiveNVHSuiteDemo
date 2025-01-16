@@ -19,4 +19,55 @@
     <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="BK.Platform.Data.DataAccess-File">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.DataAccess-File.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.DataAccess-Interfaces">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.DataAccess-Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.Database">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.Database-Factory">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.Database-Factory.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.Database-Interfaces">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.Database-Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.Database-Server-SQLite">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.Database-Server-SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.DataImport-Manager">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.DataImport-Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.DataModel">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.DataModel.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.DataModel-Core">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.DataModel-Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.DataModel-Core-Interfaces">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.DataModel-Core-Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.DataModel-Interfaces">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.DataModel-Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Data.DataTypes">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Data.DataTypes.dll</HintPath>
+    </Reference>
+    <Reference Include="BK.Platform.Utility.Asynchronous">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\BK.Platform.Utility.Asynchronous.dll</HintPath>
+    </Reference>
+    <Reference Include="Parameter">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\Parameter.dll</HintPath>
+    </Reference>
+    <Reference Include="Parameter-Interfaces">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\Parameter-Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Unit-Interfaces">
+      <HintPath>..\..\..\..\Connect\Source\Publish\Release\NT64\Unit-Interfaces.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

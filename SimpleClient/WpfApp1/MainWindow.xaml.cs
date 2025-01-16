@@ -18,6 +18,12 @@ using SciChart.Data.Model;
 using System.Numerics;
 using MathNet.Numerics.IntegralTransforms;
 using SciChart.Charting.Model.DataSeries.Heatmap2DArrayDataSeries;
+using BK.Platform;
+using SciChart.Charting.Visuals.RenderableSeries.DrawingProviders;
+using BK.Platform.Data.DataAccess;
+using BK.Platform.Data.DataModel;
+using BK.Platform.Data.DataAccess.Internal;
+using System.IO;
 
 namespace WpfApp1
 {
@@ -76,7 +82,29 @@ namespace WpfApp1
 
         private void btStart_Click(object sender, RoutedEventArgs e)
         {
+            LoadFile();
             StartListenerAsync();
+        }
+
+        List<(double, double)> _data = new();
+
+        private void LoadFile()
+        {
+            var file = lbFilePath.Text;
+
+            var reader = new StreamReader(file);
+            var line = reader.ReadLine();
+            while (line is not null)
+            {
+                var fields = line.Split(';');
+
+                double time = double.Parse(fields[0]);
+                double data = double.Parse(fields[1]);
+
+                _data.Add((time, data));
+
+                line = reader.ReadLine();
+            }
         }
 
         private async void StartListenerAsync()

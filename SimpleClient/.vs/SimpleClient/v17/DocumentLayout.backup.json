@@ -3,19 +3,34 @@
   "WorkspaceRootPath": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\SimpleClient\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\DataModel-Core\\DataModel-Core\\Unload\\DataModelUnloadLoadStateManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7745B305-46E2-4A9A-949F-032DEF82299D}|WpfApp1\\WpfApp1.csproj|c:\\hbk\\dev\\personal\\automotivenvhsuitedemo\\simpleclient\\wpfapp1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7745B305-46E2-4A9A-949F-032DEF82299D}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\ZMQex.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\Database\\Database-Server-Factory\\DatabaseServerFactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7745B305-46E2-4A9A-949F-032DEF82299D}|WpfApp1\\WpfApp1.csproj|c:\\hbk\\dev\\personal\\automotivenvhsuitedemo\\simpleclient\\wpfapp1\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7745B305-46E2-4A9A-949F-032DEF82299D}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\07562dd9ba86a0a5fead5117dd68e3c724f52eea01f79d4441c442c042cad972\\XamlReader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\9aa9b7dafbe4e43adb86b0a36518adf0c8edfecc0b1e968b66b42aa8723dd4f7\\App.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\0531cadb4159dcb372742dd70f579a84bdf841fab3e7bacb350c24c5353ea4b1\\Application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\Database\\Database-Server-SQLite\\Database\\DatabaseSQLite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7745B305-46E2-4A9A-949F-032DEF82299D}|WpfApp1\\WpfApp1.csproj|c:\\hbk\\dev\\personal\\automotivenvhsuitedemo\\simpleclient\\wpfapp1\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{7745B305-46E2-4A9A-949F-032DEF82299D}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7745B305-46E2-4A9A-949F-032DEF82299D}|WpfApp1\\WpfApp1.csproj|c:\\hbk\\dev\\personal\\automotivenvhsuitedemo\\simpleclient\\wpfapp1\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7745B305-46E2-4A9A-949F-032DEF82299D}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -25,7 +40,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -49,31 +64,72 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ZMQex.py",
-              "DocumentMoniker": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\ZMQex.py",
-              "RelativeDocumentMoniker": "..\\ZMQex.py",
-              "ToolTip": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\ZMQex.py*",
-              "RelativeToolTip": "..\\ZMQex.py*",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAADkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-01-15T10:39:08.299Z",
+              "DocumentIndex": 0,
+              "Title": "DataModelUnloadLoadStateManager.cs",
+              "DocumentMoniker": "C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\DataModel-Core\\DataModel-Core\\Unload\\DataModelUnloadLoadStateManager.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Connect\\Source\\Core\\Data\\DataModel-Core\\DataModel-Core\\Unload\\DataModelUnloadLoadStateManager.cs",
+              "ToolTip": "C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\DataModel-Core\\DataModel-Core\\Unload\\DataModelUnloadLoadStateManager.cs",
+              "RelativeToolTip": "..\\..\\..\\Connect\\Source\\Core\\Data\\DataModel-Core\\DataModel-Core\\Unload\\DataModelUnloadLoadStateManager.cs",
+              "ViewState": "AgIAALsPAAAAAAAAAAApwMUPAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T09:48:25.447Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "App.cs",
+              "DocumentMoniker": "C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\9aa9b7dafbe4e43adb86b0a36518adf0c8edfecc0b1e968b66b42aa8723dd4f7\\App.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\9aa9b7dafbe4e43adb86b0a36518adf0c8edfecc0b1e968b66b42aa8723dd4f7\\App.cs",
+              "ToolTip": "C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\9aa9b7dafbe4e43adb86b0a36518adf0c8edfecc0b1e968b66b42aa8723dd4f7\\App.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\9aa9b7dafbe4e43adb86b0a36518adf0c8edfecc0b1e968b66b42aa8723dd4f7\\App.cs [Read Only]",
+              "ViewState": "AgIAABIAAAAAAAAAAAApwB0AAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T09:47:24.958Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\SimpleClient\\WpfApp1\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "WpfApp1\\MainWindow.xaml",
-              "ToolTip": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\SimpleClient\\WpfApp1\\MainWindow.xaml",
-              "RelativeToolTip": "WpfApp1\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-14T14:52:56.549Z"
+              "Title": "XamlReader.cs",
+              "DocumentMoniker": "C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\07562dd9ba86a0a5fead5117dd68e3c724f52eea01f79d4441c442c042cad972\\XamlReader.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\07562dd9ba86a0a5fead5117dd68e3c724f52eea01f79d4441c442c042cad972\\XamlReader.cs",
+              "ToolTip": "C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\07562dd9ba86a0a5fead5117dd68e3c724f52eea01f79d4441c442c042cad972\\XamlReader.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\07562dd9ba86a0a5fead5117dd68e3c724f52eea01f79d4441c442c042cad972\\XamlReader.cs [Read Only]",
+              "ViewState": "AgIAAIcBAAAAAAAAAAAMwIgBAAACAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T09:46:41.019Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DatabaseSQLite.cs",
+              "DocumentMoniker": "C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\Database\\Database-Server-SQLite\\Database\\DatabaseSQLite.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Connect\\Source\\Core\\Data\\Database\\Database-Server-SQLite\\Database\\DatabaseSQLite.cs",
+              "ToolTip": "C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\Database\\Database-Server-SQLite\\Database\\DatabaseSQLite.cs",
+              "RelativeToolTip": "..\\..\\..\\Connect\\Source\\Core\\Data\\Database\\Database-Server-SQLite\\Database\\DatabaseSQLite.cs",
+              "ViewState": "AgIAAF0BAAAAAAAAAAAMwGoBAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T09:45:04.247Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "DatabaseServerFactory.cs",
+              "DocumentMoniker": "C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\Database\\Database-Server-Factory\\DatabaseServerFactory.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Connect\\Source\\Core\\Data\\Database\\Database-Server-Factory\\DatabaseServerFactory.cs",
+              "ToolTip": "C:\\HBK\\Dev\\Connect\\Source\\Core\\Data\\Database\\Database-Server-Factory\\DatabaseServerFactory.cs",
+              "RelativeToolTip": "..\\..\\..\\Connect\\Source\\Core\\Data\\Database\\Database-Server-Factory\\DatabaseServerFactory.cs",
+              "ViewState": "AgIAAHgBAAAAAAAAAAAMwIgBAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T09:43:39.983Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\SimpleClient\\WpfApp1\\App.xaml.cs",
               "RelativeDocumentMoniker": "WpfApp1\\App.xaml.cs",
@@ -81,20 +137,44 @@
               "RelativeToolTip": "WpfApp1\\App.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-14T16:12:02.495Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-14T16:12:02.495Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\SimpleClient\\WpfApp1\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "WpfApp1\\MainWindow.xaml.cs",
               "ToolTip": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\SimpleClient\\WpfApp1\\MainWindow.xaml.cs",
               "RelativeToolTip": "WpfApp1\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAGQAAAAAAAAAAAA7wHYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAQwCwAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-14T14:52:53.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Application.cs",
+              "DocumentMoniker": "C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\0531cadb4159dcb372742dd70f579a84bdf841fab3e7bacb350c24c5353ea4b1\\Application.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\0531cadb4159dcb372742dd70f579a84bdf841fab3e7bacb350c24c5353ea4b1\\Application.cs",
+              "ToolTip": "C:\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\0531cadb4159dcb372742dd70f579a84bdf841fab3e7bacb350c24c5353ea4b1\\Application.cs [Read Only]",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Users\\jhenriksen\\AppData\\Local\\Temp\\.vsdbgsrc\\0531cadb4159dcb372742dd70f579a84bdf841fab3e7bacb350c24c5353ea4b1\\Application.cs [Read Only]",
+              "ViewState": "AgIAANsDAAAAAAAAAAAWwOQDAAAEAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-16T09:47:26.776Z",
+              "EditorCaption": " [Read Only]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\SimpleClient\\WpfApp1\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "WpfApp1\\MainWindow.xaml",
+              "ToolTip": "C:\\HBK\\Dev\\Personal\\AutomotiveNVHSuiteDemo\\SimpleClient\\WpfApp1\\MainWindow.xaml",
+              "RelativeToolTip": "WpfApp1\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-14T14:52:56.549Z",
               "EditorCaption": ""
             }
           ]
