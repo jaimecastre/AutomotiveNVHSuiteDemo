@@ -7,3 +7,4 @@
 /SimpleClient/WpfApp1/obj
 /SimpleClient/.vs
 /SimpleClient/WpfApp1/bin
+*.db
