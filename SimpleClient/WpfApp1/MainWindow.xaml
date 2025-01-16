@@ -7,13 +7,49 @@
         xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Button x:Name="btStart" Content="Start" FontSize="30" Width="200" Height="200" Grid.Row="0" Click="btStart_Click"></Button>
-        <Label x:Name="lbSPL" FontSize="30" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Error: x dB"></Label>
-        <s:SciChartSurface x:Name="sciChartSurface" Grid.Row="1"/>
-    </Grid>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#007ACC"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="3"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Foreground" Value="#333333"/>
+        </Style>
+        <Style TargetType="DockPanel">
+            <Setter Property="Background" Value="#F0F0F0"/>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" Background="#E0E0E0" Margin="10">
+            <Button x:Name="btStart" Content="Start" Click="btStart_Click"/>
+            <Label x:Name="lbSPL" Content="Error: x dB"/>
+        </StackPanel>
+        <s:SciChartSurface x:Name="sciChartSurface" DockPanel.Dock="Bottom" Margin="10">
+            <s:SciChartSurface.ChartModifier>
+                <s:LegendModifier ShowLegend="True" />
+            </s:SciChartSurface.ChartModifier>
+        </s:SciChartSurface>
+        <s:SciChartSurface x:Name="heatmapSurface" DockPanel.Dock="Bottom" Margin="10">
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastUniformHeatmapRenderableSeries x:Name="heatmapSeries"/>
+            </s:SciChartSurface.RenderableSeries>
+        </s:SciChartSurface>
+    </DockPanel>
 </Window>
