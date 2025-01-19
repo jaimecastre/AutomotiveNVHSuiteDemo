@@ -1,29 +1,22 @@
-﻿using NetMQ.Sockets;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using Microsoft.Win32;
 using NetMQ;
+using NetMQ.Sockets;
 using Newtonsoft.Json;
 using SciChart.Charting.Model.DataSeries;
+using SciChart.Charting.Model.DataSeries.Heatmap2DArrayDataSeries;
 using SciChart.Charting.Visuals.Axes;
 using SciChart.Charting.Visuals.RenderableSeries;
-using SciChart.Data.Model;
-using System.Numerics;
-using MathNet.Numerics.IntegralTransforms;
-using SciChart.Charting.Model.DataSeries.Heatmap2DArrayDataSeries;
-using BK.Platform;
-using SciChart.Charting.Visuals.RenderableSeries.DrawingProviders;
-using BK.Platform.Data.DataAccess;
-using BK.Platform.Data.DataModel;
-using BK.Platform.Data.DataAccess.Internal;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using MathNet.Numerics.IntegralTransforms;
+using SciChart.Charting.Model;
+using System.Windows.Media;
 
 namespace WpfApp1
 {
@@ -32,8 +25,9 @@ namespace WpfApp1
         private bool _run = true;
         private const int HeatmapWidth = 1024;
         private const int HeatmapHeight = 100;
-        private double[,] _heatmapData = new double[HeatmapHeight, HeatmapWidth];
+        private readonly double[,] _heatmapData = new double[HeatmapWidth, HeatmapHeight];
         private int _currentRow = 0;
+        private readonly List<(double, List<double>)> _data = new();
 
         public MainWindow()
         {
@@ -43,41 +37,25 @@ namespace WpfApp1
 
         public class PythonInputData
         {
-            public double overall { get; set; }
-            public double[] spec { get; set; } = new double[1024];
+            public double Overall { get; set; }
+            public List<double[]> Spec { get; set; } = new List<double[]>();
         }
 
         private void InitializeSciChart()
         {
-            var xAxis = new NumericAxis
+            ConfigureAxis(sciChartSurface.XAxes, "Frequency (Hz)", AxisAlignment.Bottom);
+            ConfigureAxis(sciChartSurface.YAxes, "Amplitude (dB SPL)", AxisAlignment.Left);
+            ConfigureAxis(heatmapSurface.XAxes, "Time", AxisAlignment.Bottom);
+            ConfigureAxis(heatmapSurface.YAxes, "Frequency (Hz)", AxisAlignment.Left);
+        }
+
+        private void ConfigureAxis(AxisCollection axes, string title, AxisAlignment alignment)
+        {
+            axes.Add(new NumericAxis
             {
-                AxisTitle = "Frequency (Hz)",
-                AxisAlignment = AxisAlignment.Bottom
-            };
-
-            var yAxis = new NumericAxis
-            {
-                AxisTitle = "Amplitude (dB SPL)",
-                AxisAlignment = AxisAlignment.Left
-            };
-
-            sciChartSurface.XAxes.Add(xAxis);
-            sciChartSurface.YAxes.Add(yAxis);
-
-            var heatmapXAxis = new NumericAxis
-            {
-                AxisTitle = "Time",
-                AxisAlignment = AxisAlignment.Bottom
-            };
-
-            var heatmapYAxis = new NumericAxis
-            {
-                AxisTitle = "Frequency (Hz)",
-                AxisAlignment = AxisAlignment.Left
-            };
-
-            heatmapSurface.XAxes.Add(heatmapXAxis);
-            heatmapSurface.YAxes.Add(heatmapYAxis);
+                AxisTitle = title,
+                AxisAlignment = alignment
+            });
         }
 
         private void btStart_Click(object sender, RoutedEventArgs e)
@@ -86,24 +64,22 @@ namespace WpfApp1
             StartListenerAsync();
         }
 
-        List<(double, double)> _data = new();
-
         private void LoadFile()
         {
             var file = lbFilePath.Text;
 
-            var reader = new StreamReader(file);
-            var line = reader.ReadLine();
-            while (line is not null)
+            using (var reader = new StreamReader(file))
             {
-                var fields = line.Split(';');
-
-                double time = double.Parse(fields[0]);
-                double data = double.Parse(fields[1]);
-
-                _data.Add((time, data));
-
-                line = reader.ReadLine();
+                string? line;
+                while ((line = reader.ReadLine()) is not null)
+                {
+                    var fields = line.Split(';');
+                    if (fields.Length >= 2 && double.TryParse(fields[0], out double time))
+                    {
+                        var datas = fields.Skip(1).Select(double.Parse).ToList();
+                        _data.Add((time, datas));
+                    }
+                }
             }
         }
 
@@ -131,7 +107,7 @@ namespace WpfApp1
                     switch (str)
                     {
                         case "OK":
-                            CommandStartSpc(socket);
+                            CommandStartSpc2(socket);
                             break;
 
                         case "VALUE":
@@ -148,136 +124,172 @@ namespace WpfApp1
             }
         }
 
-        private void CommandStartSpc(RequestSocket socket)
+        private void CommandStartSpc2(RequestSocket socket)
         {
-            var newData = new PythonInputData();
-            newData.overall = 60;
-            newData.spec = new double[1024];
-            var random = new Random();
-            for (int i = 0; i < newData.spec.Length; i++)
-            {
-                newData.spec[i] = random.NextDouble();
-            }
-
+            var newData = PreparePythonInputData();
             var serializedData = JsonConvert.SerializeObject(newData);
-            //socket.SendFrame(serializedData);
+            socket.SendFrame(serializedData);
 
-            // Calculate FFT
-            Complex[] fftResult = new Complex[newData.spec.Length];
-            for (int i = 0; i < newData.spec.Length; i++)
+            var response = socket.ReceiveFrameString();
+            ProcessResponse(response);
+
+            var (fftResults, avgFftDbSplList) = CalculateFft(newData);
+
+            UpdateUiWithFftResults(avgFftDbSplList);
+        }
+
+        private PythonInputData PreparePythonInputData()
+        {
+            var newData = new PythonInputData { Overall = 60 };
+            foreach (var data in _data)
             {
-                fftResult[i] = new Complex(newData.spec[i], 0);
+                newData.Spec.Add(data.Item2.ToArray());
             }
-            Fourier.Forward(fftResult, FourierOptions.Matlab);
+            return newData;
+        }
 
-            // Calculate average FFT in dB SPL
-            double[] avgFftDbSpl = new double[fftResult.Length / 2];
-            for (int i = 0; i < avgFftDbSpl.Length; i++)
+        private (List<Complex[]>, List<double[]>) CalculateFft(PythonInputData newData)
+        {
+            int lengthData = _data.Count;
+            int sizeBlock = 8192;
+
+            var fftResults = new List<Complex[]>();
+            var avgFftDbSplList = new List<double[]>();
+
+            for (int channel = 0; channel < newData.Spec[0].Length; channel++)
             {
-                avgFftDbSpl[i] = 20 * Math.Log10(fftResult[i].Magnitude);
+                var (fftResult, avgFftDbSpl) = CalculateChannelFft(newData, lengthData, sizeBlock, channel);
+                fftResults.Add(fftResult);
+                avgFftDbSplList.Add(avgFftDbSpl);
             }
 
-            // Plotting the average FFT in dB SPL
-            var dataSeries = new XyDataSeries<double, double>();
-            for (int i = 0; i < avgFftDbSpl.Length; i++)
-            {
-                dataSeries.Append(i, avgFftDbSpl[i]);
-            }
+            return (fftResults, avgFftDbSplList);
+        }
 
-            Dispatcher.Invoke(() =>
+        private (Complex[], double[]) CalculateChannelFft(PythonInputData newData, int lengthData, int sizeBlock, int channel)
+        {
+            Complex[] fftResult = new Complex[sizeBlock];
+            double[] avgFftDbSpl = new double[sizeBlock / 2];
+
+            int ii = 0;
+            while (ii + sizeBlock < lengthData)
             {
-                var lineSeries = new FastLineRenderableSeries
+                if (ii + sizeBlock >= lengthData) break;
+
+                for (int i = 0; i < sizeBlock; i++)
                 {
-                    DataSeries = dataSeries
-                };
+                    fftResult[i] = new Complex(newData.Spec[i + ii][channel], 0);
+                }
+                Fourier.Forward(fftResult, FourierOptions.Matlab);
 
-                sciChartSurface.RenderableSeries.Clear();
-                sciChartSurface.RenderableSeries.Add(lineSeries);
-
-                // Update heatmap data
                 for (int i = 0; i < avgFftDbSpl.Length; i++)
                 {
-                    _heatmapData[_currentRow, i] = avgFftDbSpl[i];
+                    avgFftDbSpl[i] = 20 * Math.Log10(fftResult[i].Magnitude/0.00002);
                 }
-                _currentRow = (_currentRow + 1) % HeatmapHeight;
+
+                UpdateHeatmapData(avgFftDbSpl);
+                ii += sizeBlock;
+            }
+
+            return (fftResult, avgFftDbSpl);
+        }
+
+        private void UpdateHeatmapData(double[] avgFftDbSpl)
+        {
+            for (int i = 0; i < avgFftDbSpl.Length; i++)
+            {
+                if (i < _heatmapData.GetLength(0)) // Ensure index is within bounds
+                {
+                    _heatmapData[i, _currentRow] = avgFftDbSpl[i];
+                }
+            }
+            _currentRow = (_currentRow + 1) % HeatmapHeight;
+        }
+
+        private void UpdateUiWithFftResults(List<double[]> avgFftDbSplList)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                sciChartSurface.RenderableSeries.Clear();
+                var signalColors = (Color[])FindResource("SignalColors");
+
+                for (int i = 0; i < avgFftDbSplList.Count; i++)
+                {
+                    var avgFftDbSpl = avgFftDbSplList[i];
+                    var lineSeries = new XyDataSeries<double, double>();
+                    for (int j = 0; j < avgFftDbSpl.Length; j++)
+                    {
+                        lineSeries.Append(j, avgFftDbSpl[j]);
+                    }
+
+                    var lineRenderableSeries = new FastLineRenderableSeries
+                    {
+                        DataSeries = lineSeries,
+                        Stroke = signalColors[i % signalColors.Length]
+                    };
+
+                    sciChartSurface.RenderableSeries.Add(lineRenderableSeries);
+                }
 
                 var heatmapDataSeries = new UniformHeatmapDataSeries<double, double, double>(_heatmapData, 0, 1, 0, 1);
                 heatmapSeries.DataSeries = heatmapDataSeries;
             });
         }
 
-        private void CommandStartSpc2(RequestSocket socket)
+        private void ProcessResponse(string response)
         {
-            int lengthData = _data.Count;
-            int sizeBlock = 1024;
-
-            var newData = new PythonInputData();
-            newData.overall = 60;
-            newData.spec = new double[lengthData];
-
-            for (int i = 0; i < lengthData; i++)
+            if (response.StartsWith("VALUE"))
             {
-                newData.spec[i] = _data[i].Item2;
+                var errors = JsonConvert.DeserializeObject<List<double>>(response.Substring(6));
+                if (errors != null)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        lbSPL.Content = $"Errors: {string.Join(", ", errors.Select(e => $"{Math.Round(e)} dB"))}";
+                    });
+                }
             }
-            var serializedData = JsonConvert.SerializeObject(newData);
-            //socket.SendFrame(serializedData);
-
-            // Calculate FFT
-            Complex[] fftResult = new Complex[sizeBlock];
-            double[] avgFftDbSpl = new double[fftResult.Length / 2];
-
-            var ii = 0;
-            while (ii + sizeBlock < lengthData)
+            else
             {
-
-                for (int i = 0; i < sizeBlock; i++)
+                Dispatcher.Invoke(() =>
                 {
-                    fftResult[i] = new Complex(newData.spec[i + ii], 0);
-                }
-                Fourier.Forward(fftResult, FourierOptions.Matlab);
-
-                // Calculate average FFT in dB SPL
-                for (int i = 0; i < avgFftDbSpl.Length; i++)
-                {
-                    avgFftDbSpl[i] = 20 * Math.Log10(fftResult[i].Magnitude);
-                }
-
-                // Plotting the average FFT in dB SPL
-                var dataSeries = new XyDataSeries<double, double>();
-                for (int i = 0; i < avgFftDbSpl.Length; i++)
-                {
-                    dataSeries.Append(i, avgFftDbSpl[i]);
-                }
-
-                // Update heatmap data
-                for (int i = 0; i < avgFftDbSpl.Length; i++)
-                {
-                    _heatmapData[_currentRow, i] = avgFftDbSpl[i];
-                }
-                _currentRow = (_currentRow + 1) % HeatmapHeight;
-
-                ii += sizeBlock;
+                    lbSPL.Content = "Error: Invalid response";
+                });
             }
-
-
-
-            Dispatcher.Invoke(() =>
-            {
-                var heatmapDataSeries = new UniformHeatmapDataSeries<double, double, double>(_heatmapData, 0, 1, 0, 1);
-                heatmapSeries.DataSeries = heatmapDataSeries;
-            });
         }
 
         private void CommandShowValue(RequestSocket socket)
         {
             var message = socket.ReceiveFrameString();
-            if (double.TryParse(message, out double value))
+            if (message.StartsWith("VALUE"))
             {
-                lbSPL.Content = $"Error: {Math.Round(value - 100)} dB";
+                var errors = JsonConvert.DeserializeObject<List<double>>(message.Substring(6));
+                if (errors != null)
+                {
+                    lbSPL.Content = $"Errors: {string.Join(", ", errors.Select(e => $"{Math.Round(e)} dB"))}";
+                }
+                else
+                {
+                    lbSPL.Content = "Error: Invalid data";
+                }
             }
             else
             {
                 lbSPL.Content = "Error: Invalid data";
+            }
+        }
+
+        private void LoadCsv_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                lbFilePath.Text = openFileDialog.FileName;
+                LoadFile();
             }
         }
     }

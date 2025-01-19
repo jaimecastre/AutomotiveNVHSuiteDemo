@@ -35,6 +35,29 @@
         <Style TargetType="DockPanel">
             <Setter Property="Background" Value="#F0F0F0"/>
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <x:Array x:Key="SignalColors" Type="{x:Type Color}">
+            <Color>#FF0000</Color>
+            <!-- Red -->
+            <Color>#00FF00</Color>
+            <!-- Green -->
+            <Color>#0000FF</Color>
+            <!-- Blue -->
+            <Color>#FFFF00</Color>
+            <!-- Yellow -->
+            <Color>#FF00FF</Color>
+            <!-- Magenta -->
+            <Color>#00FFFF</Color>
+            <!-- Cyan -->
+            <!-- Add more colors as needed -->
+        </x:Array>
     </Window.Resources>
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" Background="#E0E0E0" Margin="10">
@@ -44,16 +67,23 @@
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" Background="#E0E0E0" Margin="10">
             <Label Content="Data file: "/>
             <TextBox x:Name="lbFilePath"/>
+            <Button x:Name="btLoadFile" Content="Load file" Click="LoadCsv_Click"/>
         </StackPanel>
-        <s:SciChartSurface x:Name="sciChartSurface" DockPanel.Dock="Bottom" Margin="10">
-            <s:SciChartSurface.ChartModifier>
-                <s:LegendModifier ShowLegend="True" />
-            </s:SciChartSurface.ChartModifier>
-        </s:SciChartSurface>
-        <s:SciChartSurface x:Name="heatmapSurface" DockPanel.Dock="Bottom" Margin="10">
-            <s:SciChartSurface.RenderableSeries>
-                <s:FastUniformHeatmapRenderableSeries x:Name="heatmapSeries"/>
-            </s:SciChartSurface.RenderableSeries>
-        </s:SciChartSurface>
+        <Grid DockPanel.Dock="Bottom" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <s:SciChartSurface x:Name="sciChartSurface" Grid.Row="0">
+                <s:SciChartSurface.ChartModifier>
+                    <s:LegendModifier ShowLegend="True" />
+                </s:SciChartSurface.ChartModifier>
+            </s:SciChartSurface>
+            <s:SciChartSurface x:Name="heatmapSurface" Grid.Row="1">
+                <s:SciChartSurface.RenderableSeries>
+                    <s:FastUniformHeatmapRenderableSeries x:Name="heatmapSeries"/>
+                </s:SciChartSurface.RenderableSeries>
+            </s:SciChartSurface>
+        </Grid>
     </DockPanel>
 </Window>
